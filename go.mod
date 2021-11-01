@@ -1,3 +1,4 @@
-module tdd
+module hello-world
+
 
 go 1.17
