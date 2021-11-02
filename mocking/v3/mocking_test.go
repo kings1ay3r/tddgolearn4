@@ -1,26 +1,25 @@
 package main
 
 import (
-	"bytes"
+	"reflect"
 	"testing"
 )
 
 func TestCountdown(t *testing.T) {
-	buffer := &bytes.Buffer{}
-	spySleeper := &SpySleeper{}
-	Countdown(buffer, spySleeper)
-
-	got := buffer.String()
-	want := `3
-2
-1
-GO!`
-
-	if got != want {
-		t.Errorf("got %q want %q", got, want)
+	// buffer := &bytes.Buffer{}
+	spySleeper := &SpyCountdownOperations{}
+	Countdown(spySleeper, spySleeper)
+	want := []string{
+		sleep,
+		write,
+		sleep,
+		write,
+		sleep,
+		write,
+		sleep,
+		write,
 	}
-
-	if spySleeper.Calls != 4 {
-		t.Errorf("Need 4 calls got %q calls", spySleeper.Calls)
+	if !reflect.DeepEqual(want, spySleeper.Calls) {
+		t.Errorf("wanted calls %v got %v", want, spySleeper.Calls)
 	}
 }
