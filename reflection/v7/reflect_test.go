@@ -32,7 +32,7 @@ func TestWalk2(t *testing.T) {
 		Input         interface{}
 		ExpectedCalls []string
 	}{
-		{
+		/* {
 			"Struct with one string field",
 			struct {
 				Name string
@@ -55,8 +55,8 @@ func TestWalk2(t *testing.T) {
 					Age     int
 					City    string
 					Address struct {
-						zip string
-						pin int
+						Zip string
+						Pin int
 					}
 				}
 			}{
@@ -65,20 +65,20 @@ func TestWalk2(t *testing.T) {
 					Age     int
 					City    string
 					Address struct {
-						zip string
-						pin int
+						Zip string
+						Pin int
 					}
 				}{
 					33,
 					"Wayanad",
 					struct {
-						zip string
-						pin int
+						Zip string
+						Pin int
 					}{"xyz", 123},
 				},
 			},
 			[]string{"Kevin", "Wayanad", "xyz"},
-		},
+		}, */
 		{
 			"Pointers to things",
 			&struct {
@@ -87,7 +87,7 @@ func TestWalk2(t *testing.T) {
 			}{"Chris", "London"},
 			[]string{"Chris", "London"},
 		},
-		{
+		/* {
 			"Slices",
 			[]struct {
 				Age  int
@@ -107,7 +107,7 @@ func TestWalk2(t *testing.T) {
 			"Maps",
 			map[string]string{"Country": "Japan", "Capital": "Mauritius"},
 			[]string{"Japan", "Mauritius"},
-		},
+		}, */
 	}
 
 	for _, test := range cases {
@@ -136,13 +136,15 @@ func assertMapsEqual(t *testing.T, got, want []string) {
 	}
 	for _, x := range want {
 		contains := false
-		for _, y := range got {
+		var y string
+		for _, y = range got {
 			if y == x {
 				contains = true
 			}
-			if !contains {
-				t.Errorf("Expected %v to contain %v", y, want)
-			}
+		}
+		if !contains {
+			t.Errorf("Expected %v to contain %v", y, want)
+			break
 		}
 	}
 
