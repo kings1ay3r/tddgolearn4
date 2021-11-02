@@ -32,7 +32,7 @@ func TestWalk2(t *testing.T) {
 		Input         interface{}
 		ExpectedCalls []string
 	}{
-		/* {
+		{
 			"Struct with one string field",
 			struct {
 				Name string
@@ -78,7 +78,7 @@ func TestWalk2(t *testing.T) {
 				},
 			},
 			[]string{"Kevin", "Wayanad", "xyz"},
-		}, */
+		},
 		{
 			"Pointers to things",
 			&struct {
@@ -87,7 +87,7 @@ func TestWalk2(t *testing.T) {
 			}{"Chris", "London"},
 			[]string{"Chris", "London"},
 		},
-		/* {
+		{
 			"Slices",
 			[]struct {
 				Age  int
@@ -107,7 +107,7 @@ func TestWalk2(t *testing.T) {
 			"Maps",
 			map[string]string{"Country": "Japan", "Capital": "Mauritius"},
 			[]string{"Japan", "Mauritius"},
-		}, */
+		},
 	}
 
 	for _, test := range cases {
