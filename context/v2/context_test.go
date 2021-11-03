@@ -84,7 +84,7 @@ func (s *SpyResponseWriter) Write([]byte) (int, error) {
 func (s *SpyResponseWriter) WriteHeader(statusCode int) {
 	s.written = true
 }
-_
+
 func TestServer(t *testing.T) {
 
 	t.Run("returns data", func(t *testing.T) {
