@@ -26,12 +26,12 @@ func NewPlayerServer(store PlayerStore) *PlayerServer {
 	p := new(PlayerServer)
 	p.store = store
 	router := http.NewServeMux()
-	router.Handle("/league", http.HandlerFunc(p.LeagueHandler))
-	router.Handle("/players/", http.HandlerFunc(p.PlayersHandler))
+	router.Handle("/league", http.HandlerFunc(p.processPost))
+	router.Handle("/players/", http.HandlerFunc(p.processGet))
 	p.Handler = router
 	return p
 }
-func (p *PlayerServer) PlayersHandler(w http.ResponseWriter, r *http.Request) {
+func (p *PlayerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodPost:
 		p.processPost(w, r)
