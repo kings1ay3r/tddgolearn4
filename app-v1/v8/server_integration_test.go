@@ -9,8 +9,9 @@ import (
 
 func TestRecordingWInsAndRetrievingThem(t *testing.T) {
 
-	//TODO Need to understand this
-	store := InMemoryPlayerStore{}
+	store := InMemoryPlayerStore{
+		map[string]int{},
+	}
 	server := NewPlayerServer(&store)
 	player := "Pepper"
 
