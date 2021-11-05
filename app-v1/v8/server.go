@@ -46,6 +46,11 @@ func (p *PlayerServer) LeagueHandler(w http.ResponseWriter, r *http.Request) {
 }
 func (p *PlayerServer) processGet(w http.ResponseWriter, r *http.Request) {
 
+	if r.URL.Path == "/league" {
+		p.LeagueHandler(w, r)
+		return
+	}
+
 	player := strings.TrimPrefix(r.URL.Path, "/players/")
 	score := p.store.GetPlayerScore(player)
 	if score == 0 {
