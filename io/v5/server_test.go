@@ -1,8 +1,8 @@
 package main
 
 import (
-	"io"
 	"io/ioutil"
+	"log"
 	"os"
 	"reflect"
 	"testing"
@@ -14,7 +14,7 @@ func TestFileSystemStore(t *testing.T) {
             {"Name": "Cleo", "Wins": 10},
             {"Name": "Chris", "Wins": 33}]`)
 		defer removeFile()
-		store := NewFileSystemPlayerStore(database)
+		store, _ := NewFileSystemPlayerStore(database)
 		got := store.GetLeague()
 		want := []Player{
 			{"Cleo", 10},
@@ -30,7 +30,7 @@ func TestFileSystemStore(t *testing.T) {
             {"Name": "Cleo", "Wins": 10},
             {"Name": "Chris", "Wins": 33}]`)
 		defer removeFile()
-		store := NewFileSystemPlayerStore(database)
+		store, _ := NewFileSystemPlayerStore(database)
 		store.RecordWin("Chris")
 		got := store.GetLeague()
 		want := []Player{
@@ -44,7 +44,7 @@ func TestFileSystemStore(t *testing.T) {
             {"Name": "Cleo", "Wins": 10},
             {"Name": "Chris", "Wins": 33}]`)
 		defer removeFile()
-		store := NewFileSystemPlayerStore(database)
+		store, _ := NewFileSystemPlayerStore(database)
 		store.RecordWin("Pepper")
 		got := store.GetLeague()
 		want := []Player{
@@ -55,9 +55,32 @@ func TestFileSystemStore(t *testing.T) {
 		assertLeague(t, got, want)
 	})
 	t.Run("league from a reader", func(t *testing.T) {
+		database, removeFile := CreateTempFile(t, `[]`)
+		defer removeFile()
+		store, err := NewFileSystemPlayerStore(database)
+		if err != nil {
+			{
+				log.Fatalf("problem creating file system player store, %v ", err)
+			}
+
+		}
+		store.RecordWin("Pepper")
+		got := store.GetLeague()
+		want := []Player{
+			{"Pepper", 1},
+		}
+		assertLeague(t, got, want)
+	})
+	t.Run("league from empty file", func(t *testing.T) {
 		database, removeFile := CreateTempFile(t, ``)
 		defer removeFile()
-		store := NewFileSystemPlayerStore(database)
+		store, err := NewFileSystemPlayerStore(database)
+		if err != nil {
+			{
+				log.Fatalf("problem creating file system player store, %v ", err)
+			}
+
+		}
 		store.RecordWin("Pepper")
 		got := store.GetLeague()
 		want := []Player{
@@ -74,7 +97,7 @@ func assertLeague(t testing.TB, got, want []Player) {
 	}
 }
 
-func CreateTempFile(t testing.TB, initialData string) (io.ReadWriteSeeker, func()) {
+func CreateTempFile(t testing.TB, initialData string) (*os.File, func()) {
 	t.Helper()
 
 	tmpfile, err := ioutil.TempFile("", "db")

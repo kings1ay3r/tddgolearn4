@@ -37,6 +37,7 @@ func NewPlayerServer(store PlayerStore) *PlayerServer {
 	router := http.NewServeMux()
 	router.Handle("/league", http.HandlerFunc(p.leagueHandler))
 	router.Handle("/players/", http.HandlerFunc(p.playersHandler))
+	router.Handle("/recordWin/", http.HandlerFunc(p.getWinHandler))
 
 	p.Handler = router
 
@@ -57,6 +58,11 @@ func (p *PlayerServer) playersHandler(w http.ResponseWriter, r *http.Request) {
 	case http.MethodGet:
 		p.showScore(w, player)
 	}
+}
+func (p *PlayerServer) getWinHandler(w http.ResponseWriter, r *http.Request) {
+	player := strings.TrimPrefix(r.URL.Path, "/recordWin/")
+
+	p.processWin(w, player)
 }
 
 func (p *PlayerServer) showScore(w http.ResponseWriter, player string) {
