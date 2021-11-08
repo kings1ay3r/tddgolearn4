@@ -25,6 +25,9 @@ type PlayerServer struct {
 
 const jsonContentType = "application/json"
 
+/*
+	Cosntructor for PlayerServer Object
+*/
 func NewPlayerServer(store PlayerStore) *PlayerServer {
 	p := new(PlayerServer)
 
