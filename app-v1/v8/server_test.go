@@ -28,6 +28,7 @@ func (s *StubPlayerStore) RecordWin(name string) {
 func (s *StubPlayerStore) GetLeague() []Player {
 	return s.league
 }
+
 func TestLeague(t *testing.T) {
 	t.Run("it returns the league table as JSON", func(t *testing.T) {
 		wantedLeague := []Player{
@@ -76,6 +77,7 @@ func newLeagueRequest() *http.Request {
 	req, _ := http.NewRequest(http.MethodGet, "/league", nil)
 	return req
 }
+
 func assertResponse(t *testing.T, got, want string) {
 	t.Helper()
 
