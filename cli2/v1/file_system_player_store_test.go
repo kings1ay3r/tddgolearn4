@@ -5,6 +5,7 @@ import (
 )
 
 func TestFileSystemStorePlayerScore(t *testing.T) {
+
 	t.Run("get player score", func(t *testing.T) {
 		database, cleanDatabase := CreateTempFile(t, `[
         {"Name": "Cleo", "Wins": 10},

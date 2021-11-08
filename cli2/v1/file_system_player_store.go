@@ -13,7 +13,6 @@ type FileSystemPlayerStore struct {
 }
 
 func NewFileSystemPlayerStore(file *os.File) (*FileSystemPlayerStore, error) {
-
 	err := initPlayerDBFile(file)
 	if err != nil {
 		return nil, err
@@ -68,7 +67,6 @@ func (f *FileSystemPlayerStore) GetPlayerScore(name string) (wins int) {
 }
 
 func (f *FileSystemPlayerStore) RecordWin(name string) {
-
 	player := f.league.Find(name)
 	if player != nil {
 		player.Wins++
