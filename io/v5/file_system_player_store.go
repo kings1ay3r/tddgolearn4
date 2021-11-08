@@ -43,9 +43,9 @@ func (l League) Find(name string) *Player {
 }
 
 func (f *FileSystemPlayerStore) GetLeague() League {
-
 	return f.league
 }
+
 func (f *FileSystemPlayerStore) GetPlayerScore(name string) (wins int) {
 	player := f.league.Find(name)
 	if player != nil {
@@ -53,6 +53,7 @@ func (f *FileSystemPlayerStore) GetPlayerScore(name string) (wins int) {
 	}
 	return
 }
+
 func (f *FileSystemPlayerStore) RecordWin(name string) {
 
 	player := f.league.Find(name)
