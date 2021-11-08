@@ -27,6 +27,7 @@ func NewFileSystemPlayerStore(file *os.File) (*FileSystemPlayerStore, error) {
 		league:   league,
 	}, nil
 }
+
 func initPlayerDBFile(file *os.File) error {
 	file.Seek(0, 0)
 	info, err := file.Stat()
@@ -57,6 +58,7 @@ func (f *FileSystemPlayerStore) GetLeague() League {
 	})
 	return f.league
 }
+
 func (f *FileSystemPlayerStore) GetPlayerScore(name string) (wins int) {
 	player := f.league.Find(name)
 	if player != nil {
@@ -64,6 +66,7 @@ func (f *FileSystemPlayerStore) GetPlayerScore(name string) (wins int) {
 	}
 	return
 }
+
 func (f *FileSystemPlayerStore) RecordWin(name string) {
 
 	player := f.league.Find(name)
