@@ -14,6 +14,7 @@ func (f *FileSystemPlayerStore) GetLeague() []Player {
 	league, _ := NewLeague(f.database)
 	return league
 }
+
 func (f *FileSystemPlayerStore) GetPlayerScore(name string) (wins int) {
 	for _, player := range f.GetLeague() {
 		if player.Name == name {
@@ -24,6 +25,7 @@ func (f *FileSystemPlayerStore) GetPlayerScore(name string) (wins int) {
 
 	return
 }
+
 func (f *FileSystemPlayerStore) RecordWin(name string) {
 	league := f.GetLeague()
 	for i, player := range league {

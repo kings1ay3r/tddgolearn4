@@ -13,10 +13,6 @@ type PlayerStore interface {
 	GetLeague() []Player
 }
 
-/* type ReadSeeker interface {
-	Reader
-	Seeker
-} */
 type Player struct {
 	Name string
 	Wins int
