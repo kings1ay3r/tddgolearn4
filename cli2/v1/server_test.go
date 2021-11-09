@@ -39,7 +39,6 @@ func TestFileSystemStore(t *testing.T) {
 			{"Cleo", 10},
 		}
 		AssertLeague(t, got, want)
-
 	})
 	t.Run("league from a reader", func(t *testing.T) {
 		database, removeFile := CreateTempFile(t, `[
@@ -78,7 +77,6 @@ func TestFileSystemStore(t *testing.T) {
 			{
 				log.Fatalf("problem creating file system player store, %v ", err)
 			}
-
 		}
 		store.RecordWin("Pepper")
 		got := store.GetLeague()
@@ -95,7 +93,6 @@ func TestFileSystemStore(t *testing.T) {
 			{
 				log.Fatalf("problem creating file system player store, %v ", err)
 			}
-
 		}
 		store.RecordWin("Pepper")
 		got := store.GetLeague()
@@ -115,10 +112,10 @@ func AssertLeague(t testing.TB, got, want []Player) {
 
 func AssertNoError(t testing.TB, err error) {
 	if err != nil {
-
 		t.Fatalf("could not create temp file %v", err)
 	}
 }
+
 func CreateTempFile(t testing.TB, initialData string) (*os.File, func()) {
 	t.Helper()
 
@@ -135,6 +132,7 @@ func CreateTempFile(t testing.TB, initialData string) (*os.File, func()) {
 
 	return tmpfile, removeFile
 }
+
 func AssertPlayerWin(t testing.TB, store *StubPlayerStore, winner string) {
 	t.Helper()
 	if len(store.winCalls) != 1 {

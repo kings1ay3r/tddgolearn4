@@ -25,6 +25,9 @@ type PlayerServer struct {
 
 const jsonContentType = "application/json"
 
+/*
+NewPlayerServer Constructor
+*/
 func NewPlayerServer(store PlayerStore) *PlayerServer {
 	p := new(PlayerServer)
 
@@ -55,6 +58,7 @@ func (p *PlayerServer) playersHandler(w http.ResponseWriter, r *http.Request) {
 		p.showScore(w, player)
 	}
 }
+
 func (p *PlayerServer) getWinHandler(w http.ResponseWriter, r *http.Request) {
 	player := strings.TrimPrefix(r.URL.Path, "/recordWin/")
 

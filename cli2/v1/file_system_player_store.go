@@ -12,6 +12,9 @@ type FileSystemPlayerStore struct {
 	league   League
 }
 
+/*
+NewFileSystemPlayerStore Constructor
+*/
 func NewFileSystemPlayerStore(file *os.File) (*FileSystemPlayerStore, error) {
 	err := initPlayerDBFile(file)
 	if err != nil {
@@ -42,6 +45,9 @@ func initPlayerDBFile(file *os.File) error {
 
 type League []Player
 
+/*
+Find a player from the league using player name.
+*/
 func (l League) Find(name string) *Player {
 	for i, p := range l {
 		if p.Name == name {
@@ -51,6 +57,9 @@ func (l League) Find(name string) *Player {
 	return nil
 }
 
+/*
+Returns the sorted league table
+*/
 func (f *FileSystemPlayerStore) GetLeague() League {
 	sort.Slice(f.league, func(i, j int) bool {
 		return f.league[i].Wins > f.league[j].Wins
@@ -58,6 +67,9 @@ func (f *FileSystemPlayerStore) GetLeague() League {
 	return f.league
 }
 
+/*
+GetPlayerScore returns the score of a Player on input player name
+*/
 func (f *FileSystemPlayerStore) GetPlayerScore(name string) (wins int) {
 	player := f.league.Find(name)
 	if player != nil {
@@ -66,6 +78,9 @@ func (f *FileSystemPlayerStore) GetPlayerScore(name string) (wins int) {
 	return
 }
 
+/*
+RecordWin records a win for the player on input player name
+*/
 func (f *FileSystemPlayerStore) RecordWin(name string) {
 	player := f.league.Find(name)
 	if player != nil {
